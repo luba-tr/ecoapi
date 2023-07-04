@@ -1,0 +1,421 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Информация об экологических маршрутах и экологических мероприятиях на территориях ООПТ Санкт-Петербурга",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://oopt-test.ecopass.adc.spb.ru"
+    }
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Авторизация"
+        ],
+        "summary": "Получение токена авторизации",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Token",
+            "schema": {
+              "type": "object",
+              "required": [
+                "login",
+                "password"
+              ],
+              "properties": {
+                "login": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Генерирует токен авторизации"
+          }
+        }
+      }
+    },
+    "/api/public/doc.json": {
+      "get": {
+        "tags": [
+          "Документация"
+        ],
+        "summary": "Описание API",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/public/eco-routes/get": {
+      "get": {
+        "tags": [
+          "Данные"
+        ],
+        "summary": "Запрос данных по экологическим маршрутам",
+        "operationId": "get_app_publicapi_publicapi_getpublicinfoofecoroutes",
+        "responses": {
+          "200": {
+            "description": "Возвращает список экологических маршрутов со всеми параметрами",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не удалось авторизоваться"
+          },
+          "404": {
+            "description": "Не удалось собрать данные"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/public/events/get": {
+      "get": {
+        "tags": [
+          "Данные"
+        ],
+        "summary": "Запрос данных по экологическим мероприятиям",
+        "operationId": "get_app_publicapi_publicapi_getpublicinfoofevents",
+        "responses": {
+          "200": {
+            "description": "Возвращает список экологических мероприятий со всеми параметрами",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не удалось авторизоваться"
+          },
+          "404": {
+            "description": "Не удалось собрать данные"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PublicEcoRouteDTO": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Описание экологического маршрута",
+            "nullable": true
+          },
+          "oopt": {
+            "type": "string",
+            "description": "ООПТ, где расположен экологический маршрут",
+            "nullable": true
+          },
+          "howGetThere": {
+            "type": "string",
+            "description": "Как добраться",
+            "nullable": true
+          },
+          "howRelax": {
+            "type": "string",
+            "description": "Как отдохнуть",
+            "nullable": true
+          },
+          "visitingRules": {
+            "type": "string",
+            "description": "Правила посещения",
+            "nullable": true
+          },
+          "parking": {
+            "type": "string",
+            "description": "Парковка",
+            "nullable": true
+          },
+          "feedbacks": {
+            "type": "array",
+            "description": "Отзывы",
+            "items": {
+              "$ref": "#/components/schemas/PublicEcoRouteDTO_feedbacks"
+            }
+          },
+          "informationMaterialsFiles": {
+            "type": "array",
+            "description": "Информационные материалы",
+            "items": {
+              "$ref": "#/components/schemas/PublicEcoRouteDTO_informationMaterialsFiles"
+            }
+          },
+          "district": {
+            "type": "string",
+            "description": "Район",
+            "nullable": true
+          },
+          "organization": {
+            "type": "string",
+            "description": "Организация",
+            "nullable": true
+          }
+        }
+      },
+      "PublicEventsDTO": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Статус мероприятия",
+            "nullable": true
+          },
+          "workProfiles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Профиль работ"
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип мероприятия",
+            "nullable": true
+          },
+          "eventName": {
+            "type": "string",
+            "description": "Название мероприятия",
+            "nullable": true
+          },
+          "happenedAt": {
+            "type": "string",
+            "description": "Дата проведения",
+            "nullable": true
+          },
+          "volunteersCount": {
+            "type": "integer",
+            "description": "Количество волонтеров",
+            "nullable": true
+          },
+          "organizers": {
+            "type": "array",
+            "description": "Организаторы",
+            "items": {
+              "type": "string"
+            }
+          },
+          "eventStaff": {
+            "type": "array",
+            "description": "Сотрудники, учавствующие в мероприятии",
+            "items": {
+              "$ref": "#/components/schemas/PublicEventsDTO_eventStaff"
+            }
+          },
+          "address": {
+            "type": "string",
+            "description": "Адрес проведения мероприятия",
+            "nullable": true
+          },
+          "districts": {
+            "type": "array",
+            "description": "Районы",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metroStations": {
+            "type": "array",
+            "description": "Станции метро",
+            "items": {
+              "type": "string"
+            }
+          },
+          "onlinePlace": {
+            "type": "string",
+            "description": "Онлайн проведение",
+            "nullable": true
+          },
+          "meetingPlace": {
+            "type": "string",
+            "description": "Место встречи",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание мероприятия",
+            "nullable": true
+          },
+          "photoLogo": {
+            "type": "array",
+            "description": "Фото-логотип мероприятия",
+            "items": {
+              "type": "string"
+            }
+          },
+          "photo": {
+            "type": "array",
+            "description": "Фото",
+            "items": {
+              "type": "string"
+            }
+          },
+          "adultVolunteersCount": {
+            "type": "integer",
+            "description": "Количество волонтеров",
+            "nullable": true
+          },
+          "underratedVolunteersCount": {
+            "type": "integer",
+            "description": "Количество волонтеров-детей",
+            "nullable": true
+          },
+          "geometry": {
+            "type": "array",
+            "description": "Геометрия на карте",
+            "items": {
+              "$ref": "#/components/schemas/PublicEventsDTO_geometry"
+            }
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "description": "Массив эко-маршрутов",
+            "items": {
+              "$ref": "#/components/schemas/PublicEcoRouteDTO"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "Статус выдачи",
+            "example": "ok"
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "description": "Массив эко-мероприятий",
+            "items": {
+              "$ref": "#/components/schemas/PublicEventsDTO"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "Статус выдачи",
+            "example": "ok"
+          }
+        }
+      },
+      "PublicEcoRouteDTO_feedbacks": {
+        "properties": {
+          "text": {
+            "title": "text",
+            "type": "string",
+            "description": "Текст отзыва"
+          },
+          "createAt": {
+            "title": "createAt",
+            "type": "string",
+            "description": "Дата добавления отзыва"
+          },
+          "author": {
+            "title": "author",
+            "type": "string",
+            "description": "Автор"
+          }
+        }
+      },
+      "PublicEcoRouteDTO_informationMaterialsFiles": {
+        "properties": {
+          "filename": {
+            "title": "filename",
+            "type": "string",
+            "description": "Имя файла"
+          },
+          "url": {
+            "title": "url",
+            "type": "string",
+            "description": "Ссылка"
+          },
+          "path": {
+            "title": "path",
+            "type": "string",
+            "description": "Путь"
+          }
+        }
+      },
+      "PublicEventsDTO_eventStaff": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Тип сотрудника",
+            "example": "Лектор"
+          },
+          "fio": {
+            "type": "string",
+            "description": "ФИО",
+            "example": "Петров Пётр Петрович"
+          }
+        }
+      },
+      "PublicEventsDTO_geometry": {
+        "properties": {
+          "geoAddress": {
+            "title": "geoAddress",
+            "type": "string",
+            "description": "Адрес на карте"
+          },
+          "geoPlace": {
+            "title": "geoPlace",
+            "type": "string",
+            "description": "Место проведения на карте"
+          },
+          "geoMeetingPlace": {
+            "title": "geoMeetingPlace",
+            "type": "string",
+            "description": "Место встречи на карте"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
