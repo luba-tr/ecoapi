@@ -1,0 +1,279 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "My App",
+    "description": "This is an awesome app!",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/public/doc.json": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/public/eco-routes/get": {
+      "get": {
+        "operationId": "get_app_publicapi_publicapi_getpublicinfoofecoroutes",
+        "responses": {
+          "200": {
+            "description": "Возвращает список эко-маршрутов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "description": "Массив эко-маршрутов",
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PublicEcoRouteDTO"
+                      }
+                    },
+                    "status": {
+                      "description": "Статус выдачи",
+                      "type": "string",
+                      "example": "ok"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не удалось авторизоваться"
+          },
+          "404": {
+            "description": "Не удалось собрать данные"
+          }
+        }
+      }
+    },
+    "/api/public/events/get": {
+      "get": {
+        "operationId": "get_app_publicapi_publicapi_getpublicinfoofevents",
+        "responses": {
+          "200": {
+            "description": "Возвращает список эко-мероприятий",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "description": "Массив эко-мероприятий",
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PublicEventsDTO"
+                      }
+                    },
+                    "status": {
+                      "description": "Статус выдачи",
+                      "type": "string",
+                      "example": "ok"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не удалось авторизоваться"
+          },
+          "404": {
+            "description": "Не удалось собрать данные"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PublicEcoRouteDTO": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "oopt": {
+            "type": "string"
+          },
+          "how_get_there": {
+            "type": "string"
+          },
+          "how_relax": {
+            "type": "string"
+          },
+          "visiting_rules": {
+            "type": "string"
+          },
+          "parking": {
+            "type": "string"
+          },
+          "feedbacks": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "text": {
+                  "title": "text",
+                  "type": "string"
+                },
+                "createAt": {
+                  "title": "createAt",
+                  "type": "string"
+                },
+                "author": {
+                  "title": "author",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "information_materials_files": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "filename": {
+                  "title": "filename",
+                  "type": "string"
+                },
+                "url": {
+                  "title": "uri",
+                  "type": "string"
+                },
+                "path": {
+                  "title": "path",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "district": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "PublicEventsDTO": {
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "work_profiles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "event_name": {
+            "type": "string"
+          },
+          "happened_at": {
+            "type": "string"
+          },
+          "volunteers_count": {
+            "type": "integer"
+          },
+          "organizers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "event_staff": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "Лектор"
+                },
+                "fio": {
+                  "type": "string",
+                  "example": "Петров Пётр Петрович"
+                }
+              }
+            }
+          },
+          "address": {
+            "type": "string"
+          },
+          "districts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metro_stations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "online_place": {
+            "type": "string"
+          },
+          "meeting_place": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "photo_logo": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "photo": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "adult_volunteers_count": {
+            "type": "integer"
+          },
+          "underrated_volunteers_count": {
+            "type": "integer"
+          },
+          "geometry": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "geoAddress": {
+                  "title": "geoAddress",
+                  "type": "string"
+                },
+                "geoPlace": {
+                  "title": "geoPlace",
+                  "type": "string"
+                },
+                "geoMeetingPlace": {
+                  "title": "geoMeetingPlace",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "bearerFormat": "JWT",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
