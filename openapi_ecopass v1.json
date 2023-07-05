@@ -10,40 +10,6 @@
     }
   ],
   "paths": {
-    "/api/auth/login": {
-      "post": {
-        "tags": [
-          "Авторизация"
-        ],
-        "summary": "Получение токена авторизации",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "Token",
-            "schema": {
-              "type": "object",
-              "required": [
-                "login",
-                "password"
-              ],
-              "properties": {
-                "login": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Генерирует токен авторизации"
-          }
-        }
-      }
-    },
     "/api/public/doc.json": {
       "get": {
         "tags": [
