@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://oopt-test.ecopass.adc.spb.ru"
+      "url": "https://oopt.ecopass.adc.spb.ru"
     }
   ],
   "paths": {
